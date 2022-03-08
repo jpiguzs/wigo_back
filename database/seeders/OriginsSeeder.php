@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-
+use App\Models\Origin;
 class OriginsSeeder extends Seeder
 {
     /**
@@ -14,5 +14,33 @@ class OriginsSeeder extends Seeder
     public function run()
     {
         //
+        $origins = [
+            [
+                'name' => 'Puerto la cruz',
+                'code' => 'plc'
+            ],
+            [
+                'name' => 'lecherias',
+                'code' => 'lech'
+            ],
+            [
+                'name' => 'barcelona',
+                'code' => 'bar'
+            ],
+            [
+                'name' => 'guanta',
+                'code' => 'guan'
+            ],
+        
+        ];
+            foreach ($origins as $key => $origin) {
+                $_origin = Origin::where('code',$origin['code'])->first();
+                if(is_null($_origin)){
+                    Origin::create([
+                        'name' => $origin['name'],
+                        'code' => $origin['code']
+                    ]);
+                }
+            }
     }
 }

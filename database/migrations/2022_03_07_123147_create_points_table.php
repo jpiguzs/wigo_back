@@ -23,7 +23,7 @@ class CreatePointsTable extends Migration
             ->on('origins');
             $table->foreignId('budget_id')
             ->references('id')
-            ->on('bugets');
+            ->on('budgets');
             $table->timestamps();
         });
     }

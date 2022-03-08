@@ -14,6 +14,25 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+
+Route::group([
+    'prefix' => 'auth',
+], function () {
+    Route::post('login', 'AuthController@login');
+    Route::post('logout', 'AuthController@logout');
+    Route::get('refresh', 'AuthController@refresh');
+    Route::get('check', 'AuthController@check');
+    Route::get('me', 'AuthController@me');
+    Route::post('register', 'AuthController@register');
+    Route::post('recovery_password', 'AuthController@recovery_password');
+    Route::post('verify_pin', 'AuthController@verify_pin');
+    Route::post('change_password', 'AuthController@change_password');
+});
+Route::group([
+    'prefix' => 'budget'
+], function(){
+    Route::post('register', 'BudgetController@register');
+    Route::get('index', 'BudgetController@index');
+    Route::get('list_user_budget', 'BudgetController@list_user_budget');
+    Route::get('budget/{$id}', 'BudgetController@getBudgetById');
 });

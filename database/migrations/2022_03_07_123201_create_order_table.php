@@ -17,7 +17,7 @@ class CreateOrderTable extends Migration
             $table->id();
             $table->foreignId('budget_id')
             ->references('id')
-            ->on('bugets');
+            ->on('budgets');
            
             $table->timestamps();
         });
