@@ -9,7 +9,7 @@ class Point extends Model
 {
     use HasFactory;
     protected $fillable =[
-        'origin_id', 'end_id'
+        'origin_id', 'end_id', 'budget_id'
     ];
 
     public function Origin() {

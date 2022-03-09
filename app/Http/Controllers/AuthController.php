@@ -113,8 +113,8 @@ class AuthController extends Controller
 
     public function user()
     {
-        $user = User::where('id', Auth::id())->with('notifications')->get()->last();
-        $user->getPermissionsViaRoles();
+        $user = User::where('id', Auth::id())->get()->last();
+        //$user->getPermissionsViaRoles();
         return $user;
     }
 

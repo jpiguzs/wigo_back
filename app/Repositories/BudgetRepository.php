@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Hash;
 
 use stdClass;
 
-class UserRepository
+class BudgetRepository
 {
 
     public function __construct()
@@ -36,21 +36,21 @@ class UserRepository
             'status' => 1
         ];
        $budget = Budget::create($data);
-        foreach ($request->boxes as $box) {
-            
+        foreach ($request->boxes as $key => $box) {
+            echo $box['height'];
             $box_data =[
-                'height' => $box->height,
-                'width' => $box->width,
-                'length' => $box->length,
+                'height' => intval($box['height']),
+                'width' => intval($box['width']),
+                'length' => intval($box['length']),
                 'budget_id' => $budget->id,
             ];
             Box::create($box_data);
 
 
         }
-        foreach ($request->delivery_points as $point) {
-            $origin = Origin::where('code', $point->origin_code)->first();
-            $end = Origin::where('code' , $point->delivery_code)->first();
+        foreach ($request->delivery_points as $key => $point) {
+            $origin = Origin::where('code', $point['origin_code'])->first();
+            $end = Origin::where('code' , $point['delivery_code'])->first();
 
             $point_data =[
                 'origin_id' => $origin->id,
