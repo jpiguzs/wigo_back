@@ -17,6 +17,8 @@ class CreateBudgetTable extends Migration
             $table->id();
             $table->double('total');
             $table->integer('status')->default(1);
+            $table->integer('payment_methods')->default(1);
+            $table->boolean('express')->default(false);
             $table->foreignId('user_id')
             ->references('id')
             ->on('users'); 

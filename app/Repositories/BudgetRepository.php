@@ -33,7 +33,9 @@ class BudgetRepository
         $data=[
             'total' => $request->total,
             'user_id' => Auth::user()->id,
-            'status' => 1
+            'status' => 1,
+            'express' => $request->express,
+            'payment_methods' => $request->patment_methods
         ];
        $budget = Budget::create($data);
         foreach ($request->boxes as $key => $box) {
