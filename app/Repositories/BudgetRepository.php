@@ -34,10 +34,11 @@ class BudgetRepository
             'total' => $request->total,
             'user_id' => Auth::user()->id,
             'status' => 1,
-            'express' => $request->express,
+            //'express' => $request->express,
             'payment_methods' => $request->patment_methods
         ];
        $budget = Budget::create($data);
+       if(!$request->all_cargo){
         foreach ($request->boxes as $key => $box) {
             echo $box['height'];
             $box_data =[
@@ -50,6 +51,8 @@ class BudgetRepository
 
 
         }
+       }
+       
         foreach ($request->delivery_points as $key => $point) {
             $origin = Origin::where('code', $point['origin_code'])->first();
             $end = Origin::where('code' , $point['delivery_code'])->first();
