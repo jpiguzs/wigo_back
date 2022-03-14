@@ -35,7 +35,7 @@ class BudgetRepository
             'user_id' => Auth::user()->id,
             'status' => 1,
             //'express' => $request->express,
-            'payment_methods' => $request->patment_methods
+            //'payment_methods' => $request->patment_methods
         ];
        $budget = Budget::create($data);
        if(!$request->all_cargo){
