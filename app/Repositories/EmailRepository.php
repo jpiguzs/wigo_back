@@ -12,7 +12,7 @@ class EmailRepository {
         $budget = Budget::with(['User','Stops'=>function($stop){
             $stop->with(['Deliverys.Box', 'Pickups.Box','City','Previous_city']);
         }])->where('id', $id)->first();
-        $subject = "Numero de orden".$id;
+        $subject = "Numero de orden ".$id;
         $data = [
             'id'=>$budget->id,
             'client' => $budget->User->name,
