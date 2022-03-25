@@ -31,7 +31,11 @@ class OriginsSeeder extends Seeder
                 'name' => 'guanta',
                 'code' => 'guan'
             ],
-        
+            [
+                'name' => 'jose',
+                'code' => 'jo'
+            ],
+
         ];
             foreach ($origins as $key => $origin) {
                 $_origin = Origin::where('code',$origin['code'])->first();

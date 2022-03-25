@@ -12,10 +12,11 @@ class Box extends Model
         'width',
         'height',
         'length',
-        'budget_id'
+        'user_id',
+        'front_id'
     ];
-     public function Budget()
+     public function User()
     {
-        return $this->belongoTo(Budget::class, 'budget_id');
+        return $this->belongoTo(User::class, 'user_id');
     }
 }

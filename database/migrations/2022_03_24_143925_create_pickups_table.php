@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBoxesTable extends Migration
+class CreatePickupsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,12 @@ class CreateBoxesTable extends Migration
      */
     public function up()
     {
-        Schema::create('boxes', function (Blueprint $table) {
+        Schema::create('pickups', function (Blueprint $table) {
             $table->id();
-            $table->double('width');
-            $table->double('height');
-            $table->double('length');
-            $table->foreignId('user_id')
-            ->references('id')
-            ->on('users');
-            $table->string('front_id');
+            $table->foreignId('stop_id')
+            ->references('id')->on('stops');
+            $table->foreignId('box_id')->references('id')->on('boxes');
+            $table->integer('quantity');
             $table->timestamps();
         });
     }
@@ -33,6 +30,6 @@ class CreateBoxesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('boxes');
+        Schema::dropIfExists('pickups');
     }
 }

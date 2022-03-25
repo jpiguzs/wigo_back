@@ -15,4 +15,7 @@ class Budget extends Model
     public function User(){
         return $this->belongsTo(User::class, 'user_id');
     }
+    public function Stops() {
+        return $this->hasMany(Stop::class);
+    }
 }

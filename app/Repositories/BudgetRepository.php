@@ -5,7 +5,9 @@ namespace App\Repositories;
 
 use App\Models\Budget;
 use App\Models\Box;
-use App\Models\Point;
+use App\Models\Stop;
+use App\Models\Delivery;
+use App\Models\Pickup;
 use App\Models\Origin;
 use Facade\FlareClient\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -17,17 +19,20 @@ class BudgetRepository
 {
 
     public function __construct()
-    {        
+    {
 
     }
     public function index(){
-        return response()->json(Budget::all(),200);
+        $budget = Budget::with(['Stops'=>function($stop){
+            $stop->with(['Deliverys.Box', 'Pickups.Box','City','Previous_city']);
+        }])->get();
+        return response()->json($budget,200);
     }
     public function list_user_budget(){
         $budget = Budget::where('user_id', Auth::user()->id)->get();
         return response()->json($budget,200);
     }
-    
+
     public function register($request){
 
         $data=[
@@ -35,34 +40,63 @@ class BudgetRepository
             'user_id' => Auth::user()->id,
             'status' => 1,
             //'express' => $request->express,
-            //'payment_methods' => $request->patment_methods
+            'payment_methods' => $request->payment_methods
         ];
        $budget = Budget::create($data);
-       if(!$request->all_cargo){
+
         foreach ($request->boxes as $key => $box) {
-            echo $box['height'];
+
             $box_data =[
                 'height' => intval($box['height']),
                 'width' => intval($box['width']),
                 'length' => intval($box['length']),
-                'budget_id' => $budget->id,
+                'user_id' => Auth::user()->id,
+                'front_id'=>$box['id'],
             ];
             Box::create($box_data);
 
 
         }
-       }
-       
-        foreach ($request->delivery_points as $key => $point) {
-            $origin = Origin::where('code', $point['origin_code'])->first();
-            $end = Origin::where('code' , $point['delivery_code'])->first();
 
-            $point_data =[
-                'origin_id' => $origin->id,
-                'end_id' => $end->id,
+
+        foreach ($request->stops as $key => $stop) {
+            $origin = Origin::where('code', $stop['city_code'])->first();
+            $end = null;
+            if($stop['previous_code']){
+                $end = Origin::where('code' , $stop['previous_code'])->first();
+            }
+
+            $stop_data =[
+                'city_id' => $origin->id,
+                'previous_city_id' => $end ? $end->id : null,
                 'budget_id' => $budget->id,
+                'total_stop' => $stop['stop_val'],
+                'total_pick' =>$stop['total_pick'],
+                'total' => $stop['total'],
+                'front_id'=> $stop['id']
             ];
-            Point::create($point_data);
+            $new_stop = Stop::create($stop_data);
+
+            foreach ($stop['pick'] as $key2 => $pick){
+                $box_found = Box::where('front_id', $pick['box_id'])->first();
+                $pick_data =[
+                    'box_id' => $box_found->id,
+                    'stop_id'=> $new_stop->id,
+                    'quantity' =>$pick['quantity']
+                ];
+                Pickup::create($pick_data);
+
+            }
+            foreach ($stop['delivery'] as $key2 => $delivery){
+                $box_found = Box::where('front_id', $delivery['box_id'])->first();
+                $delivery_data =[
+                    'box_id' => $box_found->id,
+                    'stop_id'=> $new_stop->id,
+                    'quantity' =>$delivery['val']
+                ];
+                Delivery::create($delivery_data);
+
+            }
 
             # code...
         }
