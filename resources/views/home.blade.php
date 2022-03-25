@@ -1,23 +1,6 @@
-@extends('layouts.app')
-
-@section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
-
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    {{ __('You are logged in!') }}
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-@endsection
+<div>Orden numero: {{$id}}</div>
+<div>Cliente: {{$client}}</div>
+<div>Correo del cliente: {{$email}}</div>
+<div>Total a cobrar: {{$total}}</div>
+<div>Metodo de pago: {{$payment}}</div>
+<a href='{{$ref}}'>Ver detalles</a>

@@ -21,6 +21,7 @@ class CreateUsersTable extends Migration
             $table->string('password')->nullable();
             $table->string('tlf');
             $table->string('carnet_id');
+            $table->integer('type');
             $table->rememberToken();
             $table->timestamps();
         });

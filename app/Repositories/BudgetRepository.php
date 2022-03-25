@@ -12,24 +12,27 @@ use App\Models\Origin;
 use Facade\FlareClient\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-
+use App\Repositories\EmailRepository;
 use stdClass;
 
 class BudgetRepository
 {
 
+    private $EmailRespository;
     public function __construct()
     {
-
+        $this->EmailRespository = new EmailRepository();
     }
     public function index(){
-        $budget = Budget::with(['Stops'=>function($stop){
+        $budget = Budget::with(['User','Stops'=>function($stop){
             $stop->with(['Deliverys.Box', 'Pickups.Box','City','Previous_city']);
         }])->get();
         return response()->json($budget,200);
     }
     public function list_user_budget(){
-        $budget = Budget::where('user_id', Auth::user()->id)->get();
+        $budget = Budget::where('user_id', Auth::user()->id)->with(['Stops'=>function($stop){
+            $stop->with(['Deliverys.Box', 'Pickups.Box','City','Previous_city']);
+        }])->get();
         return response()->json($budget,200);
     }
 
@@ -100,10 +103,13 @@ class BudgetRepository
 
             # code...
         }
+        $this->EmailRespository->SendEmail($budget->id);
         return response()->json($budget,200);
     }
      public function getBudgetById($id){
-        $budget = Budget::where('id',$id)->first();
+        $budget = Budget::where('id',$id)->with(['User','Stops'=>function($stop){
+            $stop->with(['Deliverys.Box', 'Pickups.Box','City','Previous_city']);
+        }])->first();
 
         return response()->json($budget, 200);
 

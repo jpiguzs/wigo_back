@@ -34,5 +34,5 @@ Route::group([
     Route::post('register', 'BudgetController@register');
     Route::get('index', 'BudgetController@index');
     Route::get('list_user_budget', 'BudgetController@list_user_budget');
-    Route::get('budget/{$id}', 'BudgetController@getBudgetById');
+    Route::get('budget/{id}', 'BudgetController@getBudgetById');
 });
