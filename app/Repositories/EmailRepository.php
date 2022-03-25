@@ -20,7 +20,7 @@ class EmailRepository {
             'payment' => $budget->payment->name,
             'total' => $budget->total,
             'stops' => $budget->Stops,
-            'ref' =>'https://dev.wigo.services/'.$id,
+            'ref' =>'https://dev.wigo.services/budget/'.$id,
 
 
     ];
