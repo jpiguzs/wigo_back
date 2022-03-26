@@ -75,6 +75,7 @@ class BudgetRepository
                 'budget_id' => $budget->id,
                 'total_stop' => $stop['stop_val'],
                 'total_pick' =>$stop['total_pick'],
+                'total_delivery' =>$stop['total_delivery'],
                 'total' => $stop['total'],
                 'front_id'=> $stop['id']
             ];

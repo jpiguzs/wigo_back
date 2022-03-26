@@ -14,21 +14,22 @@ class UserRepository
 {
 
     public function __construct()
-    {        
+    {
 
     }
 
     public function register($request)
     {
         $image = new stdClass;
-       
+
 
         $data = [
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'carnet_id' => $request->carnet_id,
-            'tlf' => $request->tlf
+            'tlf' => $request->tlf,
+            'type' => 2,
         ];
 
         $user = User::create($data);
@@ -140,7 +141,7 @@ class UserRepository
             $user->phone = $request->tlf;
         }
 
-        
+
         if ($user->avatar_path == '/images/defaultUser.jpg' && $photo) {
             $user->rating = $user->rating + 1;
             $user->rating_service = $user->rating_service + 1;
@@ -160,7 +161,7 @@ class UserRepository
         if ($request->profesion)
             $user->profesion = $request->profesion;
 
-        // $skills = explode(",", $request->skills);        
+        // $skills = explode(",", $request->skills);
 
         $user->update();
 
@@ -252,10 +253,10 @@ class UserRepository
     }
 
     public function reportar($request)
-    {      
+    {
         $idUser=$request->idUser;
         $user=User::where('id','=',$idUser)->get();
-        
+
         if($user[0]->rating == 0)
         {
             $newRating=0;
@@ -263,7 +264,7 @@ class UserRepository
         else{
             $newRating =$user[0]->rating - 0.1;
         }
-        
+
 
         $user=User::where('id','=',$idUser)->update(['rating'=> floatval($newRating)]);
 
@@ -282,7 +283,7 @@ class UserRepository
         ];
 
         $user = User::create($data);
-       
+
         return response()->json($user,200);
     }
 
@@ -307,7 +308,7 @@ class UserRepository
 
         $user->update($data);
 
- 
+
         //$array = explode(",", $request->role );
         $user->roles()->detach();
         //$array = explode(",", $request->role );
@@ -330,12 +331,12 @@ class UserRepository
 
             if ($image->error) {
                 return response()->json($image->validator, 400);
-            }     
+            }
         }
         $user->url_image = $image->url_img;
         $user->path_image = $image->path_img;
         $user->save();
         return response()->json($user,200);
-   
+
 }
 }

@@ -15,7 +15,8 @@ class Stop extends Model
         'total_stop',
         'total',
         'front_id',
-        'budget_id'
+        'budget_id',
+        'total_delivery'
     ];
 
     public function City() {

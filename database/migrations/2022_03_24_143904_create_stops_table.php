@@ -25,6 +25,7 @@ class CreateStopsTable extends Migration
             $table->double('total');
             $table->double('total_pick')->nullable();
             $table->double('total_stop')->nullable();
+            $table->double('total_delivery')->nullable();
             $table->foreignId('budget_id')
             ->references('id')
             ->on('budgets');
