@@ -22,6 +22,7 @@ class CreateBoxesTable extends Migration
             ->references('id')
             ->on('users');
             $table->string('front_id');
+
             $table->timestamps();
         });
     }

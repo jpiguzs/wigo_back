@@ -55,6 +55,7 @@ class BudgetRepository
                 'length' => intval($box['length']),
                 'user_id' => Auth::user()->id,
                 'front_id'=>$box['id'],
+
             ];
             Box::create($box_data);
 
@@ -77,7 +78,8 @@ class BudgetRepository
                 'total_pick' =>$stop['total_pick'],
                 'total_delivery' =>$stop['total_delivery'],
                 'total' => $stop['total'],
-                'front_id'=> $stop['id']
+                'front_id'=> $stop['id'],
+                'reference_point' => $stop['reference_point']
             ];
             $new_stop = Stop::create($stop_data);
 
@@ -86,7 +88,8 @@ class BudgetRepository
                 $pick_data =[
                     'box_id' => $box_found->id,
                     'stop_id'=> $new_stop->id,
-                    'quantity' =>$pick['quantity']
+                    'quantity' =>$pick['quantity'],
+
                 ];
                 Pickup::create($pick_data);
 

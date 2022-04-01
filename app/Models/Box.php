@@ -13,7 +13,8 @@ class Box extends Model
         'height',
         'length',
         'user_id',
-        'front_id'
+        'front_id',
+
     ];
      public function User()
     {
