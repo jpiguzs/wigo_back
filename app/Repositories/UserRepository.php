@@ -29,7 +29,7 @@ class UserRepository
             'password' => Hash::make($request->password),
             'carnet_id' => $request->carnet_id,
             'tlf' => $request->tlf,
-            //'last_name' => $request->last_name,
+            'last_name' => $request->last_name,
             'type' => 2,
         ];
 
