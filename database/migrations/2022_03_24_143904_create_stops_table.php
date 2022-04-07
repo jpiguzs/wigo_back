@@ -15,7 +15,7 @@ class CreateStopsTable extends Migration
     {
         Schema::create('stops', function (Blueprint $table) {
             $table->id();
-            $table->string('reference_point');
+            $table->string('reference_point')->nullable();
             $table->foreignId('city_id')
             ->references('id')
             ->on('origins');

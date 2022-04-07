@@ -13,6 +13,7 @@ use Facade\FlareClient\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Repositories\EmailRepository;
+
 use stdClass;
 
 class BudgetRepository
@@ -108,7 +109,7 @@ class BudgetRepository
             # code...
         }
         $this->EmailRespository->SendEmail($budget->id);
-        return response()->json($budget,200);
+        //return response()->json($budget,200);
     }
      public function getBudgetById($id){
         $budget = Budget::where('id',$id)->with(['User','Stops'=>function($stop){

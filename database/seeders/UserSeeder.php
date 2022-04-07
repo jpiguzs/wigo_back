@@ -17,12 +17,14 @@ class UserSeeder extends Seeder
         //
         $data = [
             ['name' => 'administardor',
+            'last_name' => 'administardor',
             'email' => 'admin@admin.com',
             'password' => Hash::make('123456'),
             'carnet_id' => '0',
             'tlf' => '0',
             'type' => 1,],
             ['name' => 'user',
+            'last_name' =>'administardor',
             'email' => 'user@user.com',
             'password' => Hash::make('123456'),
             'carnet_id' => '1',
