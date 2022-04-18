@@ -17,7 +17,8 @@ class Stop extends Model
         'front_id',
         'budget_id',
         'total_delivery',
-        'reference_point'
+        'reference_point',
+        'contact_id'
     ];
 
     public function City() {
@@ -35,6 +36,10 @@ class Stop extends Model
     }
     public function Pickups(){
       return  $this->hasMany(Pickup::class);
+    }
+
+    public function Contact(){
+        return $this->belongsTo(Contact::class, 'contact_id');
     }
 
 

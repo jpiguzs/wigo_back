@@ -30,6 +30,9 @@ class CreateStopsTable extends Migration
             $table->foreignId('budget_id')
             ->references('id')
             ->on('budgets');
+            $table->foreignId('contact_id')
+            ->references('id')
+            ->on('contacts');
             $table->timestamps();
         });
     }

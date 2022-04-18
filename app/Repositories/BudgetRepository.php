@@ -13,6 +13,7 @@ use Facade\FlareClient\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Repositories\EmailRepository;
+use App\Repositories\ContactRepository;
 
 use stdClass;
 
@@ -20,9 +21,12 @@ class BudgetRepository
 {
 
     private $EmailRespository;
+    private $ContactRepository;
     public function __construct()
     {
         $this->EmailRespository = new EmailRepository();
+        $this->ContactRepository = new ContactRepository();
+
     }
     public function index(){
         $budget = Budget::with(['User','Stops'=>function($stop){
@@ -70,7 +74,7 @@ class BudgetRepository
             if($stop['previous_code']){
                 $end = Origin::where('code' , $stop['previous_code'])->first();
             }
-
+            $new_contact = $this->ContactRepository->register($stop['contact']);
             $stop_data =[
                 'city_id' => $origin->id,
                 'previous_city_id' => $end ? $end->id : null,
@@ -80,9 +84,12 @@ class BudgetRepository
                 'total_delivery' =>$stop['total_delivery'],
                 'total' => $stop['total'],
                 'front_id'=> $stop['id'],
-                'reference_point' => $stop['reference_point']
+                'reference_point' => $stop['reference_point'],
+                'contact_id' => $new_contact->id,
             ];
             $new_stop = Stop::create($stop_data);
+
+
 
             foreach ($stop['pick'] as $key2 => $pick){
                 $box_found = Box::where('front_id', $pick['box_id'])->first();

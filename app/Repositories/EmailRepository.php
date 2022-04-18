@@ -33,17 +33,17 @@ class EmailRepository {
             $msj->subject($subject);
             $msj->to($for);
         });
-        // try {
-        //     //code...
-        //     $message = "Orden numero:".$data['id']."\nCliente:".$data['client']."\nCorreo del cliente:".$data["email"]."\nTotal a cobrar:".$data['total']."\nMetodo de pago:".$data['payment']."\nDestalles:".$data['ref']."";
-        //     $twilio = new Client(config('services.twilio.sid'), config('services.twilio.token'));
-        //     return $twilio->messages->create('whatsapp:+584248096277', [
-        //     "from" => 'whatsapp:+584248660442' ,
-        //     "body" =>$message
-        // ]);
-        // } catch (\Throwable $th) {
-        //     throw $th;
-        // }
+        try {
+            //code...
+            $message = "Orden numero:".$data['id']."\nCliente:".$data['client']."\nCorreo del cliente:".$data["email"]."\nTotal a cobrar:".$data['total']."\nMetodo de pago:".$data['payment']."\nDestalles:".$data['ref']."";
+            $twilio = new Client(config('services.twilio.sid'), config('services.twilio.token'));
+            return $twilio->messages->create('whatsapp:+584121811478', [
+            "from" => 'whatsapp:+584248660442' ,
+            "body" =>$message
+        ]);
+        } catch (\Throwable $th) {
+            throw $th;
+        }
 
         return ;
         //return response()->json($budget,200);

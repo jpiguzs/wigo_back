@@ -36,3 +36,10 @@ Route::group([
     Route::get('list_user_budget', 'BudgetController@list_user_budget');
     Route::get('budget/{id}', 'BudgetController@getBudgetById');
 });
+Route::group([
+    'prefix' => 'contacts'
+], function(){
+    Route::post('register', 'ContactController@register');
+    Route::get('index', 'ContactController@index');
+
+});
