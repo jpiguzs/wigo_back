@@ -24,6 +24,7 @@ class CreateStopsTable extends Migration
             ->on('origins');
             $table->string('front_id');
             $table->double('total');
+            $table->double('volumetry');
             $table->double('total_pick')->nullable();
             $table->double('total_stop')->nullable();
             $table->double('total_delivery')->nullable();

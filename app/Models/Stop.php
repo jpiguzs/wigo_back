@@ -18,7 +18,8 @@ class Stop extends Model
         'budget_id',
         'total_delivery',
         'reference_point',
-        'contact_id'
+        'contact_id',
+        'volumetry'
     ];
 
     public function City() {

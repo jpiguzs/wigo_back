@@ -86,6 +86,7 @@ class BudgetRepository
                 'front_id'=> $stop['id'],
                 'reference_point' => $stop['reference_point'],
                 'contact_id' => $new_contact->id,
+                'volumetry' => $stop['volumetry']
             ];
             $new_stop = Stop::create($stop_data);
 
