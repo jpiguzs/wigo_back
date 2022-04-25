@@ -21,6 +21,7 @@ class CreateDirectoriryTable extends Migration
             $table->string('tlf');
             $table->string('email')->nullable();
             $table->string('ci')->nullable();
+            $table->string('front_id');
             $table->timestamps();
         });
     }
