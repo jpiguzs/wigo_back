@@ -22,6 +22,7 @@ class CreateStopsTable extends Migration
             $table->foreignId('previous_city_id')->nullable()
             ->references('id')
             ->on('origins');
+            $table->double('volumetry');
             $table->string('front_id');
             $table->double('total');
             $table->double('total_pick')->nullable();
