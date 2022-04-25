@@ -26,13 +26,13 @@ class ContactRepository {
                     'tlf' => $contact['tlf'],
                     'email' => $contact['email'],
                     'ci'=> $contact['ci'],
-                    'front_id' => $contact['front_id']
+                    'front_id' => $contact['id']
                 ];
                 $newContac = Contact::create($contac_data);
             } else{
                 $newContac = $contactModel->first();
             }
-           
+
         }
 
 
